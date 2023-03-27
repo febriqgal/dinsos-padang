@@ -1,18 +1,49 @@
 import LayoutLogin from "@/components/layout-login";
-
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-export default function Login() {
-  const { register, handleSubmit, reset } = useForm();
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/db/firebase";
+import { toast, Toaster } from "react-hot-toast";
 
+export default function Login() {
+  const route = useRouter();
+  const { register, handleSubmit, reset } = useForm();
+  const user = auth.currentUser;
+
+  const login = async (data) => {
+    const push = async () => {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      setTimeout(() => {
+        route.replace("/");
+      }, 2000);
+    };
+    toast.promise(push(), {
+      loading: "Mohon tunggu...",
+      success: <b>Berhasil login</b>,
+      error: (error) => {
+        if (error.code === "auth/wrong-password") {
+          toast.error("Password Salah!");
+        } else if (error.code === "auth/user-not-found") {
+          toast.error("Email tidak terdaftar!");
+        } else {
+          toast.error(
+            "Tidak bisa login! karena banyak upaya login yang gagal, cobalah beberapa saat lagi!"
+          );
+        }
+      },
+    });
+    reset();
+  };
   return (
     <LayoutLogin title={"Login -"}>
-      <div className="sm:mx-auto w-full sm:w-96">
-        <div className="bg-white mx-5  px-5 py-5  shadow-xl rounded-md">
+      <Toaster />
+      <div className="min-h-screen flex items-center lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-[400px] lg:m-auto">
+        <div className="bg-white mx-10  px-5 py-5  shadow-xl rounded-md">
           <h2 className="text-center mb-8 text-3xl font-extrabold text-slate-900">
             Login
           </h2>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(login)}>
             <div>
               <input
                 className="mb-2 py-2 px-4 rounded-md  w-full shadow-xl text-slate-900"
@@ -43,7 +74,7 @@ export default function Login() {
 
             <div>
               <Link
-                href={"/login/signup"}
+                href={"/login/buat-akun"}
                 className="text-sky-900 mb-2 w-full flex justify-center py-2 px-4 rounded-lg shadow-xl text-sm font-medium focus:outline-none focus:ring-1 focus:ring-offset-2 ring-sky-900 outline outline-1 outline-sky-800"
               >
                 Buat Akun

@@ -1,4 +1,7 @@
+import { auth } from "@/db/firebase";
+
 import { Dropdown, Navbar, Text } from "@nextui-org/react";
+import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,7 +9,7 @@ import DefaultPicture from "../../../public/default.png";
 import Dinsos from "../../../public/dinsos.png";
 export default function NavbarC() {
   const route = useRouter();
-
+  const user = auth.currentUser;
   const Navigation = [
     {
       title: "Beranda",
@@ -220,24 +223,36 @@ export default function NavbarC() {
           <Dropdown.Menu
             aria-label="User menu actions"
             color="warning"
-            onAction={(actionKey) => route.push(`/${actionKey}`)}
+            onAction={(actionKey) => {
+              if (actionKey === "keluar") {
+                signOut(auth);
+                route.replace("/");
+              } else {
+                route.push(`/${actionKey}`);
+              }
+            }}
           >
             <Dropdown.Item key="profile" css={{ height: "$18" }}>
               <Text b color="inherit" css={{ d: "flex" }}>
-                Ini Nama
+                {user?.displayName ?? "-"}
               </Text>
               <Text b color="inherit" css={{ d: "flex" }}>
-                Ini Email
+                {user?.email ?? "-"}
               </Text>
             </Dropdown.Item>
             <Dropdown.Item key="admin" withDivider>
               Dashboard Admin
             </Dropdown.Item>
             <Dropdown.Item key="edit-profile">Edit Profile</Dropdown.Item>
-
-            <Dropdown.Item key="login" withDivider color="error">
-              Login
-            </Dropdown.Item>
+            {user ? (
+              <Dropdown.Item key="keluar" withDivider color="error">
+                Keluar
+              </Dropdown.Item>
+            ) : (
+              <Dropdown.Item key="login" withDivider color="error">
+                Login
+              </Dropdown.Item>
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </Navbar.Content>

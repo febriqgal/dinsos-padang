@@ -1,3 +1,5 @@
+import AuthStateChangeProvider from "@/context/auth";
+import { UserProvider } from "@/context/user";
 import "@/styles/globals.css";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 import { useSSR } from "@nextui-org/react";
@@ -17,7 +19,11 @@ export default function App({ Component, pageProps }) {
   return (
     isBrowser && (
       <NextUIProvider theme={theme}>
-        <Component {...pageProps} />
+        <UserProvider>
+          <AuthStateChangeProvider>
+            <Component {...pageProps} />
+          </AuthStateChangeProvider>
+        </UserProvider>
       </NextUIProvider>
     )
   );

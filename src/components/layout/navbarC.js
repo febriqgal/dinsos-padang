@@ -1,5 +1,4 @@
 import { auth } from "@/db/firebase";
-
 import { Dropdown, Navbar, Text } from "@nextui-org/react";
 import { signOut } from "firebase/auth";
 import Image from "next/image";

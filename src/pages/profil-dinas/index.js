@@ -166,8 +166,8 @@ export default function ProfilDinas() {
         </svg>
       </a>
       <div className="flex flex-col items-center lg:flex-row gap-4 justify-center my-10 mx-10 lg:px-0">
-        <a href="#kepaladinas">
-          <Button className="bg-sky-900">Kepala Dinas</Button>
+        <a href="#strukturorganisasi">
+          <Button className="bg-sky-900">Struktur Organisasi</Button>
         </a>
         <a href="#visidanmisi">
           <Button className="bg-sky-900">Visi Dan Misi</Button>
@@ -175,15 +175,13 @@ export default function ProfilDinas() {
         <a href="#tugasdanfungsi">
           <Button className="bg-sky-900">Tugas Dan Fungsi</Button>
         </a>
-        <a href="#strukturorganisasi">
-          <Button className="bg-sky-900">Struktur Organisasi</Button>
-        </a>
+
         <a href="#singkatsejarah">
           <Button className="bg-sky-900">Singkat Sejarah</Button>
         </a>
       </div>
       <div>
-        <section id="kepaladinas" className={`min-h-screen text-center`}>
+        <section id="strukturorganisasi" className={`min-h-screen text-center`}>
           <ul
             role="list"
             // 76 height nav
@@ -344,12 +342,7 @@ export default function ProfilDinas() {
         >
           Tugas dan Fungsi
         </h1>
-        <h1
-          id="strukturorganisasi"
-          className={`min-h-screen  flex flex-col justify-center items-center`}
-        >
-          Struktur Organisasi
-        </h1>
+
         <h1
           id="singkatsejarah"
           className={`min-h-screen  flex flex-col justify-center items-center`}

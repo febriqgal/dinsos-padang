@@ -10,18 +10,16 @@ import LayoutAdmin from "../../components/layout-admin";
 import homeroute from "../../../public/homeroute.svg";
 import { db } from "@/db/firebase";
 import styles from "../../styles/Home.module.css";
-import Layout from "@/components/layout";
-import Link from "next/link";
-import { useUser } from "@/context/user";
+
 export default function Users() {
-  const { email } = useUser();
+  const auth = getAuth();
   dayjs.locale("id");
   dayjs.extend(relativeTime);
   const snapshot = useRef(null);
   const [isLoading, setIsloading] = useState(true);
   const getDBFromFirestore = async () => {
     const querySnapshot = query(
-      collection(db, "download"),
+      collection(db, "users"),
       orderBy("tanggal", "desc")
     );
     const gettt = await getDocs(querySnapshot);
@@ -36,7 +34,11 @@ export default function Users() {
   }, []);
 
   return (
-    <Layout>
+    <LayoutAdmin>
+      <div className="flex p-4 place-items-center gap-2">
+        <Image width={20} src={homeroute} alt={"#"} />
+        <h1 className="text-xs">Admin / Kelola Pengguna</h1>
+      </div>
       {isLoading ? (
         <div className={styles.main}>
           <Loading color={"currentColor"} />
@@ -53,26 +55,26 @@ export default function Users() {
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Nama Dokumen
+                        Nama
                       </th>
 
                       <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Tanggal
+                        Email
                       </th>
                       <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Dibuat
+                        No. HP
                       </th>
                       <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Download
+                        Tanggal Bergabung
                       </th>
                     </tr>
                   </thead>
@@ -82,24 +84,17 @@ export default function Users() {
                       return (
                         <tr key={i} className={"hover:bg-slate-200"}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {data.judul}
+                            {`${data.nama}`}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {dayjs(data.tanggal).fromNow()}
+                            {`${data.email}`}
                           </td>
 
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {`${data.penulis}`}
+                            {data.nohp}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <Link target={"_blank"} href={`${data.link}`}>
-                              Link
-                            </Link>
-                            {email != "febriqgal@gmail.com" ? null : (
-                              <Link className="ml-4" href={`/download/${e.id}`}>
-                                Edit
-                              </Link>
-                            )}
+                            {dayjs(data.tanggal).fromNow()}
                           </td>
                         </tr>
                       );
@@ -111,6 +106,6 @@ export default function Users() {
           </div>
         </div>
       )}
-    </Layout>
+    </LayoutAdmin>
   );
 }

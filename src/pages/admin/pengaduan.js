@@ -1,4 +1,4 @@
-import { Loading } from "@nextui-org/react";
+import { Loading, Table } from "@nextui-org/react";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -10,18 +10,17 @@ import LayoutAdmin from "../../components/layout-admin";
 import homeroute from "../../../public/homeroute.svg";
 import { db } from "@/db/firebase";
 import styles from "../../styles/Home.module.css";
-import Layout from "@/components/layout";
-import Link from "next/link";
-import { useUser } from "@/context/user";
+import { useRouter } from "next/router";
 export default function Users() {
-  const { email } = useUser();
+  const auth = getAuth();
   dayjs.locale("id");
   dayjs.extend(relativeTime);
+  const route = useRouter();
   const snapshot = useRef(null);
   const [isLoading, setIsloading] = useState(true);
   const getDBFromFirestore = async () => {
     const querySnapshot = query(
-      collection(db, "download"),
+      collection(db, "pengaduan"),
       orderBy("tanggal", "desc")
     );
     const gettt = await getDocs(querySnapshot);
@@ -36,7 +35,11 @@ export default function Users() {
   }, []);
 
   return (
-    <Layout>
+    <LayoutAdmin>
+      <div className="flex p-4 place-items-center gap-2">
+        <Image width={20} src={homeroute} alt={"#"} />
+        <h1 className="text-xs">Admin / Kelola Pengaduan</h1>
+      </div>
       {isLoading ? (
         <div className={styles.main}>
           <Loading color={"currentColor"} />
@@ -53,26 +56,23 @@ export default function Users() {
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Nama Dokumen
+                        Judul Pengaduan
                       </th>
 
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pr-56 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Isi Pengaduan
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Tanggal
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Dibuat
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Download
+                      <th scope="col" className="relative px-6 py-3">
+                        <span className="sr-only"> </span>
                       </th>
                     </tr>
                   </thead>
@@ -81,25 +81,28 @@ export default function Users() {
                       const data = e.data();
                       return (
                         <tr key={i} className={"hover:bg-slate-200"}>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {data.judul}
+                          <td className="pr-56 pl-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {`${data.judul}`.slice(0, 30)}
+                            {`${data.judul}`.length > 50 ? "..." : ""}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <td className="pr-56 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {`${data.isi}`.slice(0, 30)}
+                            {`${data.isi}`.length > 50 ? "..." : ""}
+                          </td>
+
+                          <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {dayjs(data.tanggal).fromNow()}
                           </td>
 
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {`${data.penulis}`}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <Link target={"_blank"} href={`${data.link}`}>
-                              Link
-                            </Link>
-                            {email != "febriqgal@gmail.com" ? null : (
-                              <Link className="ml-4" href={`/download/${e.id}`}>
-                                Edit
-                              </Link>
-                            )}
+                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a
+                              href={`/pengaduan/${e.id}`}
+                              target={"_blank"}
+                              className="text-slate-900 border px-2 rounded-lg border-slate-900 hover:bg-slate-900 hover:text-white"
+                              rel="noreferrer"
+                            >
+                              Lihat
+                            </a>
                           </td>
                         </tr>
                       );
@@ -111,6 +114,6 @@ export default function Users() {
           </div>
         </div>
       )}
-    </Layout>
+    </LayoutAdmin>
   );
 }

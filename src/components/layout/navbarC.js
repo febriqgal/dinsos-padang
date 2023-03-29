@@ -6,7 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import DefaultPicture from "../../../public/default.png";
 import Dinsos from "../../../public/dinsos.png";
+import { useUser } from "@/context/user";
 export default function NavbarC() {
+  const { uid, email } = useUser();
   const route = useRouter();
   const user = auth.currentUser;
   const Navigation = [
@@ -239,10 +241,26 @@ export default function NavbarC() {
                 {user?.email ?? "-"}
               </Text>
             </Dropdown.Item>
-            <Dropdown.Item key="admin" withDivider>
-              Dashboard Admin
-            </Dropdown.Item>
-            <Dropdown.Item key="edit-profile">Edit Profile</Dropdown.Item>
+            {email != "febriqgal@gmail.com" ? null : (
+              <Dropdown.Item key="admin" withDivider>
+                Dashboard Admin
+              </Dropdown.Item>
+            )}
+            {!user ? null : (
+              <Dropdown.Item key="edit-profile/ganti-nama">
+                Edit Nama
+              </Dropdown.Item>
+            )}
+            {!user ? null : (
+              <Dropdown.Item key="edit-profile/ganti-password">
+                Edit Password
+              </Dropdown.Item>
+            )}
+            {!user ? null : (
+              <Dropdown.Item key="edit-profile/ganti-profile">
+                Ganti Foto Profile
+              </Dropdown.Item>
+            )}
             {user ? (
               <Dropdown.Item key="keluar" withDivider color="error">
                 Keluar

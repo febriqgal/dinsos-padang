@@ -256,11 +256,7 @@ export default function NavbarC() {
                 Edit Password
               </Dropdown.Item>
             )}
-            {!user ? null : (
-              <Dropdown.Item key="edit-profile/ganti-profile">
-                Ganti Foto Profile
-              </Dropdown.Item>
-            )}
+
             {user ? (
               <Dropdown.Item key="keluar" withDivider color="error">
                 Keluar

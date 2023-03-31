@@ -58,24 +58,28 @@ export default function Index() {
         <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 scale-[1.02]">
           <Carousel leftControl=" " rightControl=" ">
             <Image
+              placeholder="blur"
               width={900}
               height={100}
               src="https://firebasestorage.googleapis.com/v0/b/dinsos-padang.appspot.com/o/image%2Fheader%2F1?alt=media&token=050e2e85-9e21-4497-9f13-4980ddb1d6a8"
               alt="..."
             />
             <Image
+              placeholder="blur"
               width={900}
               height={100}
               src="https://firebasestorage.googleapis.com/v0/b/dinsos-padang.appspot.com/o/image%2Fheader%2F2?alt=media&token=050e2e85-9e21-4497-9f13-4980ddb1d6a8"
               alt="..."
             />
             <Image
+              placeholder="blur"
               width={900}
               height={100}
               src="https://firebasestorage.googleapis.com/v0/b/dinsos-padang.appspot.com/o/image%2Fheader%2F3?alt=media&token=050e2e85-9e21-4497-9f13-4980ddb1d6a8"
               alt="..."
             />
             <Image
+              placeholder="blur"
               width={900}
               height={100}
               src="https://firebasestorage.googleapis.com/v0/b/dinsos-padang.appspot.com/o/image%2Fheader%2F4?alt=media&token=050e2e85-9e21-4497-9f13-4980ddb1d6a8"

@@ -55,7 +55,7 @@ export default function Index() {
     const data = Object.values(post);
     return (
       <Layout>
-        <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 scale-[1.02]">
+        <div className="h-[150px] sm:h-64 xl:h-80 2xl:h-96 scale-[1.02]">
           <Carousel leftControl=" " rightControl=" ">
             <Image
               width={900}

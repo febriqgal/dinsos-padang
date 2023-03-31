@@ -181,7 +181,7 @@ export default function ProfilDinas() {
         </a>
       </div>
       <div>
-        <section id="strukturorganisasi" className={`min-h-screen text-center`}>
+        <section id="strukturorganisasi" className={`text-center`}>
           <ul
             role="list"
             // 76 height nav
@@ -287,7 +287,7 @@ export default function ProfilDinas() {
         </section>
         <section
           id="visidanmisi"
-          className={`min-h-screen flex flex-col justify-center items-center`}
+          className={`pt-10 flex flex-col justify-center items-center`}
         >
           <div>
             <div className="text-center">

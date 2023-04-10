@@ -58,7 +58,7 @@ export default function detail() {
     const post = snapshot.current;
 
     return (
-      <div className={styles.main}>
+      <div className={'min-h-screen flex items-center'}>
         <Toaster />
         <form
           className="flex flex-col text-slate-900 w-full px-5 sm:w-[500px]"

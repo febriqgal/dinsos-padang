@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/db/firebase";
 import { toast, Toaster } from "react-hot-toast";
-
+import Head from "next/head";
 export default function Login() {
   const route = useRouter();
   const { register, handleSubmit, reset } = useForm();
@@ -38,8 +38,8 @@ export default function Login() {
   return (
     <LayoutLogin title={"Login -"}>
       <Toaster />
-      <div className="min-h-screen flex items-center lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-[400px] lg:m-auto">
-        <div className="bg-white mx-10  px-5 py-5  shadow-xl rounded-md">
+      <div className="min-h-screen flex w-full items-center lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-[400px] lg:m-auto">
+        <div className="bg-white mx-5  px-5 py-5  shadow-xl rounded-md">
           <h2 className="text-center mb-8 text-3xl font-extrabold text-slate-900">
             Login
           </h2>

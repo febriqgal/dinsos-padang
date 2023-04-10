@@ -58,9 +58,8 @@ export default function Login() {
 
   return (
     <LayoutLogin title={"Daftar - "}>
-      <div className={styles.main}>
+      <div className={"flex min-h-screen items-center"}>
         <Toaster />
-
         <div className="mx-auto w-full lg:w-96">
           <div className="bg-white mx-5 p-5 shadow-xl rounded-lg">
             <h2 className="text-center mb-8 text-3xl font-extrabold text-slate-900">

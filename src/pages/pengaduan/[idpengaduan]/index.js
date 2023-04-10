@@ -21,11 +21,12 @@ import hapus from "../../../../public/hapus.svg";
 import penulis from "../../../../public/penulis.svg";
 import styles from "../../../styles/Home.module.css";
 import { db, FirebaseStorage } from "@/db/firebase";
+import protectAdmin from "@/protect/protect-admin";
 
-export default function detail() {
+const detail = () => {
   const [isLoading, setIsloading] = useState(true);
   const route = useRouter();
-  const { id } = route.query;
+  const { idpengaduan } = route.query;
   const users = useUser();
   const { email } = users;
   const [visible, setVisible] = useState(false);
@@ -36,8 +37,8 @@ export default function detail() {
   const snapshot = useRef(null);
   dayjs.locale("id");
   dayjs.extend(relativeTime);
-  const dataBerita = async () => {
-    const docRef = doc(db, "berita", `${id}`);
+  const dataPengaduan = async () => {
+    const docRef = doc(db, "pengaduan", `${idpengaduan}`);
     const docSnap = await getDoc(docRef);
     snapshot.current = docSnap.data();
     setTimeout(() => {
@@ -45,7 +46,7 @@ export default function detail() {
     }, 1000);
   };
   useEffect(() => {
-    dataBerita();
+    dataPengaduan();
   });
   if (isLoading) {
     return (
@@ -78,7 +79,7 @@ export default function detail() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Image src={dibuat} width={20} alt={"#"} />
-                  <Tooltip content={post.tanggal_berita}>
+                  <Tooltip content={post.tanggal_Pengaduan}>
                     <h3 className="uppercase text-xs">
                       {`${dayjs(post.tanggal).fromNow()}`}
                     </h3>
@@ -97,11 +98,6 @@ export default function detail() {
                         <Image width={20} src={hapus} alt={"#"} />
                       </Tooltip>
                     </button>
-                    <Link href={`${id}/edit/${post.judul}`}>
-                      <Tooltip content={"Edit"}>
-                        <Image width={20} src={edit} alt={"#"} />
-                      </Tooltip>
-                    </Link>
                   </>
                 )}
               </div>
@@ -118,13 +114,13 @@ export default function detail() {
                   <button
                     className="bg-red-500 py-1 px-4 rounded-lg text-white"
                     onClick={async () => {
-                      const docRef = doc(db, "berita", `${id}`);
+                      const docRef = doc(db, "pengaduan", `${idpengaduan}`);
 
                       const desertRef = ref(
                         FirebaseStorage,
-                        `image/berita/${post.gambar}`
+                        `image/pengaduan/${post.gambar}`
                       );
-                      await deleteObject(desertRef);
+                      deleteObject(desertRef);
                       await deleteDoc(docRef);
                       route.replace("/");
                     }}
@@ -174,7 +170,7 @@ export default function detail() {
                     <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
                       <img
                         className="rounded-lg shadow-lg object-cover object-center hover:scale-105 duration-1000"
-                        src={`https://firebasestorage.googleapis.com/v0/b/dinsos-padang.appspot.com/o/image%2Fberita%2F${post?.gambar}?alt=media&token=c7f8bf32-09db-4b9b-ace9-8f34a52d35fa`}
+                        src={`https://firebasestorage.googleapis.com/v0/b/dinsos-padang.appspot.com/o/image%2Fpengaduan%2F${post?.gambar}?alt=media&token=06e50844-10c0-4856-afc5-b183b14d8863`}
                         alt={post.judul}
                         width={1184}
                         height={1376}
@@ -199,4 +195,5 @@ export default function detail() {
       </Layout>
     );
   }
-}
+};
+export default protectAdmin(detail);

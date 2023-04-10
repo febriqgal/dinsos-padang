@@ -72,7 +72,7 @@ export default function Login() {
                 <input
                   className="mb-2 py-2 px-4 rounded-lg w-full shadow-xl text-slate-900"
                   type={"text"}
-                  maxLength={16}
+                  maxLength={10}
                   placeholder="Nama"
                   {...register("nama", { required: true })}
                 />
@@ -100,12 +100,17 @@ export default function Login() {
               </div>
               <div className="text-center"></div>
               <div>
-                <button onClick={(()=>{rou})} className=" mb-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#2D3082] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button
+                  onClick={() => {
+                    route.back();
+                  }}
+                  className="text-sky-900 mb-2 w-full flex justify-center py-2 px-4 rounded-lg shadow-xl text-sm font-medium focus:outline-none focus:ring-1 focus:ring-offset-2 ring-sky-900 outline outline-1 outline-sky-800"
+                >
                   Kembali
                 </button>
                 <button
                   type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#2D3082] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Daftar
                 </button>

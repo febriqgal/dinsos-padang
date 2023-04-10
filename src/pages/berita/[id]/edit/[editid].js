@@ -49,7 +49,7 @@ export default function detail() {
   });
   if (isLoading) {
     return (
-      <div className={styles.main}>
+      <div className={styles.center}>
         <Loading color={"currentColor"} />
       </div>
     );
@@ -57,7 +57,7 @@ export default function detail() {
     const post = snapshot.current;
 
     return (
-      <div className={styles.main}>
+      <div className={styles.center}>
         <Toaster />
         <form
           className="flex flex-col text-slate-900 w-full px-5 sm:w-[500px]"

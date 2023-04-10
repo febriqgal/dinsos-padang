@@ -45,7 +45,7 @@ export default function LayouUser() {
 
   if (isLoading) {
     return (
-      <div className={styles.main}>
+      <div className={styles.center}>
         <Loading color={"currentColor"} />
       </div>
     );

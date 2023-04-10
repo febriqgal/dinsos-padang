@@ -40,7 +40,7 @@ export default function Users() {
         <h1 className="text-xs">Admin / Kelola Pengguna</h1>
       </div>
       {isLoading ? (
-        <div className={styles.main}>
+        <div className={styles.center}>
           <Loading color={"currentColor"} />
         </div>
       ) : (

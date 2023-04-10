@@ -224,10 +224,12 @@ export default function NavbarC() {
           <Dropdown.Menu
             aria-label="User menu actions"
             color="warning"
-            onAction={(actionKey) => {
-              if (actionKey === "keluar") {
-                signOut(auth);
+            onAction={async (actionKey) => {
+              if (actionKey === "") {
+                await signOut(auth);
                 route.replace("/");
+              }
+              if (actionKey === "profile") {
               } else {
                 route.push(`/${actionKey}`);
               }
@@ -241,7 +243,7 @@ export default function NavbarC() {
                 {user?.email ?? "-"}
               </Text>
             </Dropdown.Item>
-            {email != "febriqgal@gmail.com" ? null : (
+            {email != "admin@dinsos.com" ? null : (
               <Dropdown.Item key="admin" withDivider>
                 Dashboard Admin
               </Dropdown.Item>
@@ -258,7 +260,7 @@ export default function NavbarC() {
             )}
 
             {user ? (
-              <Dropdown.Item key="keluar" withDivider color="error">
+              <Dropdown.Item key="" withDivider color="error">
                 Keluar
               </Dropdown.Item>
             ) : (

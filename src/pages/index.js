@@ -46,7 +46,7 @@ export default function Index() {
 
   if (isLoading) {
     return (
-      <div className={styles.main}>
+      <div className={styles.center}>
         <Loading color={"currentColor"} />
       </div>
     );

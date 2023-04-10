@@ -8,7 +8,7 @@ import Dinos from "../../public/dinsos.png";
 const protectAdmin = (Pages) => {
   return (props) => {
     const { uid, email } = useUser();
-    if (!uid || email != "febriqgal@gmail.com") {
+    if (!uid || email != "admin@dinsos.com") {
       return (
         <section>
           <Head>

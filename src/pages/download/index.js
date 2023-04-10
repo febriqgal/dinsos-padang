@@ -38,7 +38,7 @@ export default function Users() {
   return (
     <Layout>
       {isLoading ? (
-        <div className={styles.main}>
+        <div className={styles.center}>
           <Loading color={"currentColor"} />
         </div>
       ) : (
@@ -95,7 +95,7 @@ export default function Users() {
                             <Link target={"_blank"} href={`${data.link}`}>
                               Link
                             </Link>
-                            {email != "febriqgal@gmail.com" ? null : (
+                            {email != "admin@dinsos.com" ? null : (
                               <Link className="ml-4" href={`/download/${e.id}`}>
                                 Edit
                               </Link>

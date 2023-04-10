@@ -8,16 +8,21 @@ import styles from "../../styles/Home.module.css";
 import { toast, Toaster } from "react-hot-toast";
 import protectLogin from "../../protect/protect-login";
 import { useRouter } from "next/router";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/db/firebase";
 const GantiNama = () => {
   const route = useRouter();
   const [isDisable, setDisable] = useState(false);
   const { register, handleSubmit, control } = useForm();
-
+  const washingtonRef = doc(db, "users", auth.currentUser.email);
   const user = auth.currentUser;
   const addDataImageHeader = async (data) => {
     const push = async () => {
       await updateProfile(auth.currentUser, {
         displayName: data.nama,
+      });
+      await updateDoc(washingtonRef, {
+        nama: data.nama,
       });
       setDisable(true);
       setTimeout(() => {
@@ -42,7 +47,7 @@ const GantiNama = () => {
         <form onSubmit={handleSubmit(addDataImageHeader)}>
           <input
             type={"text"}
-            maxLength={16}
+            maxLength={10}
             className="mb-2 py-1 px-3 rounded-lg mr-2 shadow-lg"
             placeholder="Nama baru*"
             control={control}

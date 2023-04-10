@@ -36,7 +36,7 @@ export default function Users() {
   }, []);
 
   return (
-    <Layout>
+    <Layout title={"Download - "}>
       {isLoading ? (
         <div className={styles.center}>
           <Loading color={"currentColor"} />
